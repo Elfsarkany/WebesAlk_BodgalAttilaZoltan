@@ -6,12 +6,40 @@ using System.Dynamic;
 
 namespace FélévesFeladat_BodgálAttilaZoltánGVFPFT
 {
+    public class jsonCharacter
+    {
+        public string name { get; set; }
+        public string race { get; set; }
+        public string chClass { get; set; }
+        public string level { get; set; }
+        public string[] stats { get; set; }
+        public string average { get; set; }
 
-    
+        public jsonCharacter() { }
+
+        public string ToString()
+        {
+            return name + " " + race + " " + chClass + " " + level + " " + average;
+        }
+
+        public Character ToCharacter()
+        {
+            int[] stats = new int[this.stats.Length];
+            for (int i = 0; i < stats.Length; i++)
+            {
+                stats[i] = int.Parse(this.stats[i]);
+            }
+            bool av;
+            if (this.average == "true")
+            { av = true; }
+            else { av = false; }
+            Character c = new Character(this.chClass, this.name, this.race, int.Parse(level),stats,av);
+            return c;
+        }
+    }
     public class Character
     {
         private int hitdie { get; set; }
-
         private int[] stats = { 0, 0, 0, 0, 0, 0 };
         private string chClass { get; set; }
         private string name { get; set; }
@@ -30,7 +58,7 @@ namespace FélévesFeladat_BodgálAttilaZoltánGVFPFT
             {
                 this.stats[index] = stats[index];
             }
-            this.maxhp = Controllers.CalculateMaxHP(this.hitdie, lvl, avg,  (stats[2] - 11) / 2 );
+            this.maxhp = Controllers.CalculateMaxHP(this.hitdie, lvl, avg, (stats[2] - 11) / 2);
             this.currenthp = this.maxhp;
         }
 
@@ -49,19 +77,29 @@ namespace FélévesFeladat_BodgálAttilaZoltánGVFPFT
         }
         public string getDiscription()
         {
-            return  hitdie+ ", " + race + ", " + chClass + ", " + level + "-th lvl, " + currenthp + "/" + maxhp +
+            return hitdie + ", " + race + ", " + chClass + ", " + level + "-th lvl, " + currenthp + "/" + maxhp +
             " hp, STR: " + this.GetStat(0) + " DEX: " + this.GetStat(1) + " CON: " + this.GetStat(2) + " INT: " + this.GetStat(3) + " WIS: " + this.GetStat(4) + " CHA: " + this.GetStat(5);
         }
     }
 
     public class tempcharacter
     {
-        private string name;
-        private string race;
-        private string chClass;
-        private int level;
-        private int[] stats = { 0, 0, 0, 0, 0, 0 };
-        private bool average;
+        public string name { get; set; }
+        public string race { get; set; }
+        public string chClass { get; set; }
+        public int level { get; set; }
+        public int[] stats { get; set; }
+        public bool average { get; set; }
+
+        public tempcharacter(string name, string race, string chclass, int level, int[] stats, bool average)
+        {
+            this.name = name;
+            this.race = race;
+            this.chClass = chclass;
+            this.level = level;
+            this.stats = stats;
+            this.average = average;
+        }
 
         public string getName()
         {

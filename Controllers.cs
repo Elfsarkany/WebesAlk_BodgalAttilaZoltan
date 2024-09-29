@@ -63,10 +63,14 @@ namespace FélévesFeladat_BodgálAttilaZoltánGVFPFT
 
                 foreach (string line in JSONlines)
                 {
-                    Character temp = JsonSerializer.Deserialize<Character>(line);
-                    fullCharacterList.Add(temp);
+                    if (line != "")
+                    {
+                        // Character temp = JsonSerializer.Deserialize<Character>(line);
+                        jsonCharacter js= JsonSerializer.Deserialize<jsonCharacter>(line);
+                        Character temp = js.ToCharacter();
+                        fullCharacterList.Add(temp);
+                    }
                 }
-
             }
             catch (IOException e)
             {
@@ -125,6 +129,7 @@ namespace FélévesFeladat_BodgálAttilaZoltánGVFPFT
         {
             List<Character> chList = readInFully();
             chList.Add(ch);
+            Console.WriteLine(ch);
             try
             {
                 string currentDirectory = Directory.GetCurrentDirectory();

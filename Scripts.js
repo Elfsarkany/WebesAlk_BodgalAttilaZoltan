@@ -124,7 +124,7 @@ function updateChSelector() {
         }
     };
 
-    xhttp.open("GET", "http://localhost:5189/refreshCharacters", true);
+    xhttp.open("GET", "https://localhost:7124/refreshCharacters", true);
     xhttp.send();
 }
 
@@ -163,8 +163,8 @@ function storeCharacter() {
     };
     newCharacter = CreateNewCharacterfromInput();
     sendingCharacterJSON = JSON.stringify(newCharacter);
-
-    xhttp.open("GET", "http://localhost:5189/storeCharacter?jsonElement=" + sendingCharacterJSON, true);
+    window.alert(sendingCharacterJSON);
+    xhttp.open("GET", "https://localhost:7124/storeCharacter?jsonElement=" + sendingCharacterJSON, true);
     xhttp.send();
 }
 
@@ -190,6 +190,6 @@ function getChoosenCharacter() {
     optionSelected = document.getElementById("CharacterSelection");
     chSelected = { name: optionSelected.options[optionSelected.selectedIndex].text, index: optionSelected.options[optionSelected.selectedIndex].value };
 
-    xhttp.open("GET", "http://localhost:5189/getCharacter?jsonCharacterRequest=" + chSelected, true);
+    xhttp.open("GET", "https://localhost:7124/getCharacter?jsonCharacterRequest=" + chSelected, true);
     xhttp.send();
 }
